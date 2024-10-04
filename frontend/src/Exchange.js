@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Web3 from 'web3';
+
+
 import { getEtherBalanceInWei } from './components/EtherManagement/getEtherBalanceInWei';
 import { withdrawEther } from './components/EtherManagement/withdrawEther';
 import { cancelBuyOrder } from './components/OrderBookManagement/cancelBuyOrder';
@@ -19,8 +21,15 @@ import { sellToken } from './components/TokenManagement/sellToken';
 import { withdrawToken } from './components/TokenManagement/withdrawToken';
 
 
-var exchange_contract_address = process.env.REACT_APP_EXCHANGE_ADDRESS;
+import exchange_artifact from './contracts/Exchange.json';
 
+
+var exchange_contract_address = process.env.REACT_APP_EXCHANGE_ADDRESS;
+var localProviderURL = process.env.REACT_APP_GANACHE_GUI_ADDRESS;
+
+let web3 = new Web3(new Web3.providers.HttpProvider(localProviderURL));
+const contract = new web3.eth.Contract(exchange_artifact.abi, exchange_contract_address);
+console.log('Connected to the local blockchain with contract at:', exchange_contract_address);
 
 function Exchange() {
   const [tokens, setTokens] = useState([]); // State to store the tokens
