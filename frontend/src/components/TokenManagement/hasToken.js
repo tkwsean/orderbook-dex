@@ -11,5 +11,3 @@ export async function hasToken(contract, tokenSymbol) {
       };
     }
   }
-
-module.exports = hasToken;

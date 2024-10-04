@@ -1,4 +1,4 @@
-async function getEtherBalanceInWei(contract,addr) {
+export async function getEtherBalanceInWei(contract,addr) {
   try {
     // Interact with the contract to get the Ether balance
     var etherBalanceInWei = await contract.methods.getEtherBalanceInWei().call({ from: addr });
@@ -10,5 +10,3 @@ async function getEtherBalanceInWei(contract,addr) {
     throw new Error('Error retrieving Ether balance');
   }
 }
-
-module.exports = getEtherBalanceInWei;

@@ -1,4 +1,4 @@
-async function withdrawToken(contract, symbolName, amount, addr) {
+export async function withdrawToken(contract, symbolName, amount, addr) {
     try {
       // Interact with the contract to withdraw the token
       await contract.methods.withdrawToken(symbolName, amount).send({ from: addr, gas: 1000000 });
@@ -13,6 +13,5 @@ async function withdrawToken(contract, symbolName, amount, addr) {
       throw new Error('Error withdrawing token');
     }
   }
-  
-  module.exports = withdrawToken;
+
   

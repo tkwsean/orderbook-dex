@@ -1,4 +1,4 @@
-async function getSellOrderBook(contract, symbolName) {
+export async function getSellOrderBook(contract, symbolName) {
     var sellOrderBook = await contract.methods.getSellOrderBook(symbolName).call();
     return {
       indexes: sellOrderBook['0'],
@@ -6,5 +6,3 @@ async function getSellOrderBook(contract, symbolName) {
       amounts: sellOrderBook['2']
     }
   }
-
-module.exports = getSellOrderBook;

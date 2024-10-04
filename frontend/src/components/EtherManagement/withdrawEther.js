@@ -1,4 +1,4 @@
-async function withdrawEther(contract, amountInWei, addr) {
+export async function withdrawEther(contract, amountInWei, addr) {
     try {
       // Interact with the contract to withdraw Ether
       var etherBalanceInWei = await contract.methods.withdrawEther(amountInWei).send({ from: addr });
@@ -11,5 +11,4 @@ async function withdrawEther(contract, amountInWei, addr) {
     }
   }
   
-  module.exports = withdrawEther;
   

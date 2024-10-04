@@ -1,4 +1,4 @@
-async function depositToken(contract, symbolName, amount, addr) {
+export async function depositToken(contract, symbolName, amount, addr) {
     try {
       // Interact with the contract to deposit the token
       await contract.methods.depositToken(symbolName, amount).send({ from: addr, gas: 1000000 });
@@ -13,6 +13,4 @@ async function depositToken(contract, symbolName, amount, addr) {
       throw new Error('Error depositing token');
     }
   }
-  
-module.exports = depositToken;
   

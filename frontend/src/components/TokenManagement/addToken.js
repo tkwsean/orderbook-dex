@@ -1,4 +1,4 @@
-async function addToken(contract, symbolName, ecr20TokenAddress, addr) {
+export async function addToken(contract, symbolName, ecr20TokenAddress, addr) {
     try {
       // Interact with the contract to add a token
       await contract.methods.addToken(symbolName, ecr20TokenAddress).send({ from: addr });
@@ -10,6 +10,5 @@ async function addToken(contract, symbolName, ecr20TokenAddress, addr) {
       throw new Error('Error adding token');
     }
   }
-  
-module.exports = addToken;
+
   
