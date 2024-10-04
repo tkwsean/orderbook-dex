@@ -1,0 +1,22 @@
+export async function getAllTokens() {
+  try {
+    const response = await contract.methods.getAllTokens().call();
+
+    const tokens = [];
+    for (let i = 0; i < response['0'].length; i++) {
+      tokens.push({
+        symbolName: response['0'][i],
+        address: response['1'][i]
+      });
+    }
+
+    return {
+      tokens: tokens
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      msg: "Error getting all tokens"
+    };
+  }
+}
