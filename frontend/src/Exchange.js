@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import Web3 from 'web3';
+import Web3Modal from "web3modal";
 
 
 import { getEtherBalanceInWei } from './components/EtherManagement/getEtherBalanceInWei';
@@ -19,17 +20,10 @@ import { getTokenAddress } from './components/TokenManagement/getTokenAddress';
 import { hasToken } from './components/TokenManagement/hasToken';
 import { sellToken } from './components/TokenManagement/sellToken';
 import { withdrawToken } from './components/TokenManagement/withdrawToken';
+import { loadContract } from './components/Web3SetUp';
 
 
-import exchange_artifact from './contracts/Exchange.json';
-
-
-var exchange_contract_address = process.env.REACT_APP_EXCHANGE_ADDRESS;
-var localProviderURL = process.env.REACT_APP_GANACHE_GUI_ADDRESS;
-
-let web3 = new Web3(new Web3.providers.HttpProvider(localProviderURL));
-const contract = new web3.eth.Contract(exchange_artifact.abi, exchange_contract_address);
-console.log('Connected to the local blockchain with contract at:', exchange_contract_address);
+const { web3, exchangeContract } = await loadContract();
 
 function Exchange() {
   const [tokens, setTokens] = useState([]); // State to store the tokens
@@ -39,7 +33,8 @@ function Exchange() {
   useEffect(() => {
     async function fetchTokens() {
       try {
-        const tokenList = await getAllTokens(); // Call the getAllTokens function
+        const tokenList = await getAllTokens(exchangeContract); // Call the getAllTokens function
+        console.log("Token List:", tokenList);
         setTokens(tokenList.tokens || []); // Update the state with the fetched tokens
         setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
