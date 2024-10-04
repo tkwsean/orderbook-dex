@@ -18,6 +18,10 @@ import { hasToken } from './components/TokenManagement/hasToken';
 import { sellToken } from './components/TokenManagement/sellToken';
 import { withdrawToken } from './components/TokenManagement/withdrawToken';
 
+
+var exchange_contract_address = process.env.REACT_APP_EXCHANGE_ADDRESS;
+
+
 function Exchange() {
   const [tokens, setTokens] = useState([]); // State to store the tokens
   const [loading, setLoading] = useState(true); // State to manage loading status
