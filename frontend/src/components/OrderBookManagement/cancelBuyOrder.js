@@ -1,6 +1,4 @@
-// tokenService.js
 
-import { contract } from './contractInstance'; // Ensure the path points to your contract instance definition
 import { getBuyOrderBook } from '../OrderBookManagement/getBuyOrderBook';
 
 export async function cancelBuyOrder(contract, symbolName, orderIndex, addr) {
