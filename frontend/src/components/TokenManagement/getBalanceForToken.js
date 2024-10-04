@@ -1,4 +1,4 @@
-export async function getBalanceForToken(symbolName, addr) {
+export async function getBalanceForToken(contract, symbolName, addr) {
     try {
       const balanceForToken = await contract.methods.getBalanceForToken(symbolName).call({ from: addr });
       return {

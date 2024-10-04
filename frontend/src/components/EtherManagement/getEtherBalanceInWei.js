@@ -1,4 +1,4 @@
-async function getEtherBalanceInWei(addr) {
+async function getEtherBalanceInWei(contract,addr) {
   try {
     // Interact with the contract to get the Ether balance
     var etherBalanceInWei = await contract.methods.getEtherBalanceInWei().call({ from: addr });

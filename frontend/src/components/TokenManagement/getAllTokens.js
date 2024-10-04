@@ -1,4 +1,4 @@
-export async function getAllTokens() {
+export async function getAllTokens(contract) {
   try {
     const response = await contract.methods.getAllTokens().call();
 

@@ -1,6 +1,6 @@
 import { getSellOrderBook } from '../OrderBookManagement/getSellOrderBook'; // Import the getBuyOrderBook function if defined elsewhere
 
-export async function sellToken(symbolName, priceInWei, amount, addr) {
+export async function sellToken(contract, symbolName, priceInWei, amount, addr) {
   try {
     await contract.methods.sellToken(symbolName, priceInWei, amount)
                           .send({ from: addr, gas: 1000000 });

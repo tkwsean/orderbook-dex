@@ -1,4 +1,4 @@
-async function getSellOrderBook(symbolName) {
+async function getSellOrderBook(contract, symbolName) {
     var sellOrderBook = await contract.methods.getSellOrderBook(symbolName).call();
     return {
       indexes: sellOrderBook['0'],

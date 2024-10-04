@@ -1,4 +1,4 @@
-async function getAccountBuyOrders(symbolName, addr) {
+async function getAccountBuyOrders(contract, symbolName, addr) {
     var buyOrderBook = await contract.methods.getAccountBuyOrders(symbolName).call({ from: addr });
     return {
       indexes: buyOrderBook['0'],

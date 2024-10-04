@@ -1,4 +1,4 @@
-async function getTokenAddress(symbolName) {
+async function getTokenAddress(contract, symbolName) {
     try {
       // Interact with the contract to get the token address
       var tokenAddress = await contract.methods.getTokenAddress(symbolName).call();

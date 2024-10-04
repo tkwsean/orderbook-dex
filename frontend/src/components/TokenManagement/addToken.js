@@ -1,4 +1,4 @@
-async function addToken(symbolName, ecr20TokenAddress, addr) {
+async function addToken(contract, symbolName, ecr20TokenAddress, addr) {
     try {
       // Interact with the contract to add a token
       await contract.methods.addToken(symbolName, ecr20TokenAddress).send({ from: addr });

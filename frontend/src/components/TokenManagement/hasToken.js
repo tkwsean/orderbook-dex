@@ -1,4 +1,4 @@
-export async function hasToken(tokenSymbol) {
+export async function hasToken(contract, tokenSymbol) {
     try {
       const response = await contract.methods.hasToken(tokenSymbol).call();
       return {

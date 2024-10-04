@@ -1,4 +1,8 @@
 import React from 'react';
+import Web3 from 'web3';
+import getEtherBalanceInWei from './components/EtherManagement/getEtherBalanceInWei';
+import withdrawEther from './components/EtherManagement/withdrawEther';
+
 
 function Exchange() {
   return (
