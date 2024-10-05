@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
-import { FormControl, InputLabel, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
+import { FormControl, InputLabel, Select, MenuItem, CircularProgress, Typography, Button } from '@mui/material';
 
 
 import { getEtherBalanceInWei } from './components/EtherManagement/getEtherBalanceInWei';
@@ -29,6 +29,8 @@ const { web3, exchangeContract } = await loadContract();
 function Exchange() {
   const [tokens, setTokens] = useState([]); // State to store the tokens
   const [selectedToken, setSelectedToken] = useState(''); // State for the selected token
+  const [account, setAccount] = useState('');
+  const [error, setError] = useState(null);
   // useEffect to fetch tokens when the component mounts
   useEffect(() => {
     async function fetchTokens() {
@@ -42,6 +44,22 @@ function Exchange() {
 
     fetchTokens(); // Trigger the fetch when the component mounts
   }, []); // The empty dependency array means this useEffect runs once, when the component mounts
+
+  const getAccount = async () => {
+    if (window.ethereum) {
+      try {
+        const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+        setAccount(accounts[0]);
+        setError(null);
+      } catch (err) {
+        console.error('User rejected the request.', err);
+        setError('Connection request was rejected.');
+      }
+    } else {
+      console.error('Ethereum provider not found');
+      setError('Please install MetaMask or another Ethereum wallet.');
+    }
+  };
 
   const handleChange = (event) => {
     setSelectedToken(event.target.value);
@@ -60,6 +78,18 @@ function Exchange() {
             ))}
         </Select>
       </FormControl>
+      <div style={{ marginTop: '40px' }}>
+        {account ? (
+          <div>
+            <p><strong>Connected Account:</strong> {account}</p>
+          </div>
+        ) : (
+          <Button variant="contained" color="primary" onClick={getAccount}>
+            Connect Wallet
+          </Button>
+        )}
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+      </div>
     </div>
   );
 }
