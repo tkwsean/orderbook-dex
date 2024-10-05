@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Web3 from 'web3';
 import Web3Modal from "web3modal";
+import { FormControl, InputLabel, Select, MenuItem, CircularProgress, Typography } from '@mui/material';
 
 
 import { getEtherBalanceInWei } from './components/EtherManagement/getEtherBalanceInWei';
@@ -27,44 +28,38 @@ const { web3, exchangeContract } = await loadContract();
 
 function Exchange() {
   const [tokens, setTokens] = useState([]); // State to store the tokens
-  const [loading, setLoading] = useState(true); // State to manage loading status
-
+  const [selectedToken, setSelectedToken] = useState(''); // State for the selected token
   // useEffect to fetch tokens when the component mounts
   useEffect(() => {
     async function fetchTokens() {
       try {
         const tokenList = await getAllTokens(exchangeContract); // Call the getAllTokens function
-        console.log("Token List:", tokenList);
-        setTokens(tokenList.tokens || []); // Update the state with the fetched tokens
-        setLoading(false); // Set loading to false once data is fetched
+        setTokens(tokenList.tokens); // Update the state with the fetched tokens
       } catch (error) {
         console.error('Error fetching tokens:', error);
-        setLoading(false); // In case of error, stop loading
       }
     }
 
     fetchTokens(); // Trigger the fetch when the component mounts
   }, []); // The empty dependency array means this useEffect runs once, when the component mounts
 
+  const handleChange = (event) => {
+    setSelectedToken(event.target.value);
+  };
+
   return (
     <div>
       <h1>Exchange Page</h1>
-      {loading ? (
-        <p>Loading tokens...</p>
-      ) : tokens.length > 0 ? (
-        <div>
-          <h3>Available Tokens:</h3>
-          <ul>
-            {tokens.map((token, index) => (
-              <li key={index}>
-                {token.symbolName} - {token.address}
-              </li>
+      <FormControl fullWidth variant="outlined" style={{ marginTop: '20px' }}>
+        <InputLabel id="select-token-label">Select Token</InputLabel>
+        <Select labelId="select-token-label" id="select-token" value={selectedToken} onChange={handleChange} label="Select Token">
+        {tokens.map((token) => (
+              <MenuItem key={token.address} value={token.symbolName}>
+                {token.symbolName}
+              </MenuItem>
             ))}
-          </ul>
-        </div>
-      ) : (
-        <p>No tokens available</p> // Handle case where no tokens are found
-      )}
+        </Select>
+      </FormControl>
     </div>
   );
 }
