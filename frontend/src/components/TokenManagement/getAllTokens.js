@@ -19,16 +19,3 @@ export async function getAllTokens(contract) {
     };
   }
 }
-
-// export async function getAllTokens(contract) {
-//   try {
-//     console.log('Hello World!');
-//     const response = await contract.methods.getAllTokens().call();
-//     console.log('Hello World!');
-//     console.log("Response from contract:", response);
-//     return response;
-//   } catch (error) {
-//     console.error("Error calling getAllTokens:", error);
-//     throw error;
-//   }
-// }
